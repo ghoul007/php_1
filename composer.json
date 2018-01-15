@@ -1,0 +1,12 @@
+{
+    "name": "symfony/entretien",
+    "authors": [
+        {
+            "name": "Ahmed",
+            "email": "ghoul.ahmed5@gmail.com"
+        }
+    ],
+    "require": {
+        "swiftmailer/swiftmailer": "^6.0"
+    }
+}
