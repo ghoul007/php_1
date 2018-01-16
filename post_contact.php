@@ -1,34 +1,24 @@
 <?php 
 // require_once './vendor/autoload.php';
-require_once 'vendor/swiftmailer/swiftmailer/lib/classes/Swift/SmtpTransport.php';
-// require_once 'vendor/swiftmailer/swiftmailer/lib/swift_required.php';
+require_once './vendor/autoload.php';
+
+// Create the Transport
+$transport = (new Swift_SmtpTransport('smtp.mailtrap.io', 25))
+  ->setUsername('b1010a7bccc675')
+  ->setPassword('26187fd6556530');
 
 
-// Create the SMTP configuration
-$transport = (new Swift_SmtpTransport('smtp.gmail.com', 587))
-->setUsername('email')
-->setPassword('password')
-;
+// Create the Mailer using your created Transport
+$mailer = new Swift_Mailer($transport);
 
-$transport->setUsername("Username");
-$transport->setPassword("Password");
+// Create a message
+$message = (new Swift_Message('Qte'.$_POST['qte']))
+  ->setFrom([$_POST['email'] => 'user'])
+  ->setTo('opencart.opencart@gmail.com')
+  ->setBody($_POST['msg'])
+  ;
 
-
-// $transport =Swift_MailTransport::newInstance();
-$mail =Swift_Mail::newInstance($transport);
-$message =Swift_Message::newInstance("bienvenue")
-->setFrom([$_POST['email'] => "ahmed"])
-->setTo("ghoul.ahmed5@gmail.com")
-->setBody($_POST['msg']);
-
-$result = $mail->send($message);
-var_dump($result);
-echo $_POST['email'];
-echo $_POST['qte'];
-echo $_POST['msg'];
-
-mail('destinataire@truc.com','Sujet',$_POST['msg'],'From:'. $_POST['email']);
-
-// header('Location:index.php');
+  $result = $mailer->send($message);
+  header('Location:index.php');
 
 ?>    
